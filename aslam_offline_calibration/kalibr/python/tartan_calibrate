@@ -227,20 +227,29 @@ def main():
     if (parsed.intriParaYaml != ""):
         prara_fd = open(parsed.intriParaYaml, 'r',encoding="utf-8")
         para_dict = yaml.load(prara_fd.read())
-        num_cameras = para_dict['camera_numbers']
-        print("cameras in total: ",num_cameras)
-        for i in range(num_cameras):
-            print("camera ",i," intrinsic parameters: ",para_dict['camera_'+str(i)]['intrinsics'])
-            print("camera ",i," distortion parameters: ",para_dict['camera_'+str(i)]['distortion_coeffs'])
-            projection_prarameters_list.append((para_dict['camera_'+str(i)]['intrinsics']))
-            distortion_prarameters_list.append((para_dict['camera_'+str(i)]['distortion_coeffs']))
+        # num_cameras = para_dict['camera_numbers']
+        # print("cameras in total: ",num_cameras)
+        # for i in range(num_cameras):
+        #     print("camera ",i," intrinsic parameters: ",para_dict['cam'+str(i)]['intrinsics'])
+        #     print("camera ",i," distortion parameters: ",para_dict['cam'+str(i)]['distortion_coeffs'])
+        #     projection_prarameters_list.append((para_dict['cam'+str(i)]['intrinsics']))
+        #     distortion_prarameters_list.append((para_dict['cam'+str(i)]['distortion_coeffs']))
+        # print("Get all cameras intrinsic prarameters")
+        # using_intriParaYaml = True
+        # projection_prarameters = np.array(projection_prarameters_list)
+        # distortion_prarameters = np.array(distortion_prarameters_list)
+        # print("projection_prarameters: ",projection_prarameters)
+        # print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        # print("distortion_prarameters: ",distortion_prarameters)
+        for key, value in para_dict.items():
+            print(key, value)
+            projection_prarameters_list.append((para_dict[key]['intrinsics']))
+            distortion_prarameters_list.append((para_dict[key]['distortion_coeffs']))
         print("Get all cameras intrinsic prarameters")
         using_intriParaYaml = True
         projection_prarameters = np.array(projection_prarameters_list)
         distortion_prarameters = np.array(distortion_prarameters_list)
-        print("projection_prarameters: ",projection_prarameters)
-        print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-        print("distortion_prarameters: ",distortion_prarameters)
+        print("Transfer to numpy array") 
     
     # Logging modes (verbosity)
     if parsed.verbose:
